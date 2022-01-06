@@ -89,12 +89,11 @@ k_fold = KFold(n_splits = 10, shuffle = True, random_state  =0)
 tree = tree.DecisionTreeClassifier()
 scoring = 'accuracy'
 score = cross_val_score(tree, X, y, cv= k_fold, n_jobs=1, scoring=scoring)
-print(score)
+
 
 forest = RandomForestClassifier()
 scoring = 'accuracy'
 score = cross_val_score(forest, X, y, cv= k_fold, scoring=scoring)
-print(score)
 
 (np.mean(score))
 
@@ -104,7 +103,6 @@ for i in range(10,50) :
     scoring = 'accuracy'
     score = cross_val_score(knn, X, y, cv = k_fold, scoring = scoring)  
     k_scores.append(np.mean(score))
-print(k_scores)
 
 k_range = range(10, 50)
 plt.plot(k_range, k_scores)
@@ -117,6 +115,5 @@ scoring = 'accuracy'
 
 score = cross_val_score(knn_best, X, y, cv = k_fold, n_jobs = 1, scoring = scoring)
 
-print(score)
 
 (np.mean(score))
