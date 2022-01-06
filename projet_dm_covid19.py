@@ -10,22 +10,26 @@ import numpy as np
 from sklearn.model_selection import train_test_split
 import seaborn as sn
 dataset_Train = pd.read_csv("Coronavirus_Tunisia.csv")
-
-pd.options.display.max_colwidth = 200
-
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import confusion_matrix
 from sklearn.metrics import plot_confusion_matrix
 from sklearn.metrics import accuracy_score
-
-data= pd.read_csv("Coronavirus_Tunisia.csv")
-data.info
-
-
 import matplotlib.pyplot as plt
 from matplotlib.pyplot import figure
-pd.options.display.max_colwidth = 400 
+from sklearn import tree
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.model_selection import train_test_split
+from sklearn import preprocessing
+from sklearn import metrics
+from sklearn.metrics import confusion_matrix,accuracy_score$import pickle
+from sklearn.model_selection import KFold
+from sklearn.model_selection import cross_val_score
+
+data= pd.read_csv("Coronavirus_Tunisia.csv")
+
 figure(num=None, figsize=(10, 10))
 plt.hist(dataset_Train['city'])
 plt.xlabel('city')
@@ -56,16 +60,6 @@ dataset_Train.case = dataset_Train['case'].map({'danger': 1, 'stable': 0})
 X=dataset_Train.loc[:, dataset_Train.columns != 'case']
 y=dataset_Train.iloc[:,0]
 
-
-from sklearn import tree
-from sklearn.neighbors import KNeighborsClassifier
-from sklearn.tree import DecisionTreeClassifier
-from sklearn.ensemble import RandomForestClassifier
-from sklearn.model_selection import train_test_split
-from sklearn import preprocessing
-from sklearn import metrics
-from sklearn.metrics import confusion_matrix,accuracy_score
-
 X_train,X_test,y_train,y_test=train_test_split(X,y,test_size=0.20 , random_state=0)
 
 clf = tree.DecisionTreeClassifier()
@@ -76,13 +70,10 @@ y_pred = clf.predict(X_test)
 accuracy = accuracy_score(y_test,y_pred)
 
 
-import pickle
+
 pickle.dump(clf, open("model_tree.pkl",'wb'))
 
 model = pickle.load(open("model_tree.pkl",'rb'))
-
-from sklearn.model_selection import KFold
-from sklearn.model_selection import cross_val_score
 
 k_fold = KFold(n_splits = 10, shuffle = True, random_state  =0)
 
