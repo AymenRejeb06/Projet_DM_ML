@@ -105,6 +105,5 @@ knn_best = KNeighborsClassifier(n_neighbors = 35)
 scoring = 'accuracy'
 
 score = cross_val_score(knn_best, X, y, cv = k_fold, n_jobs = 1, scoring = scoring)
-
-
+print(score)
 (np.mean(score))
